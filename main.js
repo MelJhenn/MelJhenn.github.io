@@ -1,4 +1,4 @@
-var secretNumber= random ();
+﻿var secretNumber= random ();
 var tries=0;
 function play (){
 	tries=tries+1;
@@ -8,7 +8,7 @@ function play (){
     text.value="";
     guessNumber=parseInt(guessNumber);
     if (secretNumber==guessNumber){
-    	description.innerHTML="Bien Hecho! Lo lograste en "+tries+" intentos. Pense en otro n�mero, juega de nuevo.";
+    	description.innerHTML="Bien Hecho! Lo lograste en "+tries+" intentos. Pense en otro número, juega de nuevo.";
         secretNumber=random();
         tries=0;
     }
