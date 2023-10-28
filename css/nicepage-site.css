@@ -18013,13 +18013,14 @@ h2.u-subtitle {
 }
 
 h1:not(.u-title) {
-  font-size: 6rem;
+  font-size: 5rem;
   line-height: 1.1;
   margin-top: 20px;
   margin-bottom: 20px;
   font-weight: 700;
   list-icon-spacing: 0.3;
   list-icon-size: 0.8;
+  text-align: center;
 }
 
 h2:not(.u-subtitle) {
@@ -18500,15 +18501,15 @@ blockquote {
 .u-header .u-image-1 {
   width: 64px;
   height: 32px;
-  margin: 22px auto 0 0;
+  margin: 5px auto 0 0;
 }
 
 .u-header .u-logo-image-1 {
-  height: 100px;
+  height: 60px;
 }
 
 .u-header .u-menu-1 {
-  margin: -32px 0 22px auto;
+  margin: -50px 0 22px auto;
 }
 
 .u-header .u-nav-1 {
