@@ -1,3 +1,15 @@
+.u-padding-left li {
+  padding-left: 10px;
+}
+
+.u-nav-item {
+  font-size: 12px;
+}
+
+.u-text-1 img {
+  vertical-align: middle;
+}
+
 .conocenoscenter {
   text-align: center;
 }
@@ -1888,7 +1900,7 @@
   --animation-custom_in-opacity: 0;
   --animation-custom_in-rotate: 0deg;
   --animation-custom_in-scale: 1;
-  margin: 60px auto 0;
+  margin: 0 auto 0;
 }
 
 .u-section-8 .u-list-1 {
