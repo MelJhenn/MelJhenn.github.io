@@ -1,4 +1,14 @@
 var proyectos = [];
+var siglas = {
+    "ELECTROMEDICINA": "emd",
+    "CONSTRUCCION CIVIL": "ccc",
+    "GAS, PETROLEO Y PROCESOS": "gpp",
+    "GAS, PETROLEO": "gpp",
+    "INDUSTRIA TEXTIL Y CONFECCION": "itc",
+    "INFORMATICA INDUSTRIAL": "iin",
+    "METALURGIA, SIDERURGIA Y FUNDICION": "msf",
+    "ELECTROMECANICA": "emc",
+};
 function crearCampo(subtitulo, valor) {
     var campo = $("<p>");
     campo.append([
@@ -25,21 +35,11 @@ function crearDatos(proyecto) {
     datos.append([title, autor, tutor, carrera, modalidad, gestion, gestion, codigo, resumen]);
     return datos;
 }
-function obtenerSigla(proyecto) {
-    var siglas = {
-        "ELECTROMEDICINA": "emd",
-        "CONSTRUCCION CIVIL": "ccc",
-        "GAS, PETROLEO Y PROCESOS": "gpp",
-        "GAS, PETROLEO": "gpp",
-        "INDUSTRIA TEXTIL Y CONFECCION": "itc",
-        "INFORMATICA INDUSTRIAL": "iin",
-        "METALURGIA, SIDERURGIA Y FUNDICION": "msf",
-        "ELECTROMECANICA": "emc",
-    };
-    return siglas[proyecto.carrera.normalize('NFD').replace(/[\u0300-\u036f]/g, "").trim()];
+function limpiar(cadena) {
+    return cadena.normalize('NFD').replace(/[\u0300-\u036f]/g, "").trim();
 }
 function crearCelda(proyecto) {
-    var sigla = obtenerSigla(proyecto);
+    var sigla = siglas[limpiar(proyecto.carrera)];
     var padre = $("#padre");
     var celda = $("<div>", {
         "class": "celda " + sigla
@@ -70,25 +70,25 @@ function crearMenu() {
     </ul>
     <ul class="u-nav u-popupmenu-items u-unstyled u-nav-2 u-padding-left">
     <li class="u-nav-item"><a class="u-button-style u-nav-link active"
-    href="emd.html" title="Electromedicina">Electromedicina</a>
+    href="proyectos.html?sigla=emd" title="Electromedicina">Electromedicina</a>
     </li>
     <li class="u-nav-item"><a class="u-button-style u-nav-link active"
-    href="ccc.html" title="Construcción Civil">Construcción Civil</a>
+    href="proyectos.html?sigla=ccc" title="Construcción Civil">Construcción Civil</a>
     </li>
     <li class="u-nav-item"><a class="u-button-style u-nav-link active"
-    href="emc.html" title="Electromecánica">Electromecánica</a>
+    href="proyectos.html?sigla=emc" title="Electromecánica">Electromecánica</a>
     </li>
     <li class="u-nav-item"><a class="u-button-style u-nav-link active"
-    href="iin.html" title="Informática Industrial">Informática Industrial</a>
+    href="proyectos.html?sigla=iin" title="Informática Industrial">Informática Industrial</a>
     </li>
     <li class="u-nav-item"><a class="u-button-style u-nav-link active"
-    href="gpp.html" title="Gas, Petróleo y Procesos">Gas, Petróleo y Procesos</a>
+    href="proyectos.html?sigla=gpp" title="Gas, Petróleo y Procesos">Gas, Petróleo y Procesos</a>
     </li>
     <li class="u-nav-item"><a class="u-button-style u-nav-link active"
-    href="itc.html" title="Industria Textil y Confección">Industria Textil y Confección</a>
+    href="proyectos.html?sigla=itc" title="Industria Textil y Confección">Industria Textil y Confección</a>
     </li>
     <li class="u-nav-item"><a class="u-button-style u-nav-link active"
-    href="msf.html" title="Metalurgia, Siderurgia y Fundición">Metalurgia, Siderurgia y Fundición</a>
+    href="proyectos.html?sigla=msf" title="Metalurgia, Siderurgia y Fundición">Metalurgia, Siderurgia y Fundición</a>
     </li>
     </ul>
     <ul class="u-nav u-popupmenu-items u-unstyled u-nav-2">
@@ -98,6 +98,41 @@ function crearMenu() {
     </ul>
     `);
 }
+function seleccionarCarreras(sigla) {
+    var resultado = [];
+    for (const [key, value] of Object.entries(siglas)) {
+        if (value == sigla) resultado.push(key);
+    }
+    return resultado;
+}
+function modificarTitulo(carreras, sigla) {
+    var nombre = carreras[0];
+    for (carrera of carreras) {
+        if (carrera.length > nombre.length)
+            nombre = carrera;
+    }
+    $("#titulo").html('<img src="./img/' + sigla + 'logo.png" width="100px">' + nombre);
+}
+function seleccionarProyectos(jsondata) {
+    const querystring = window.location.search;
+    const params = new URLSearchParams(querystring);
+    var sigla = params.get("sigla");
+    if (sigla == null) {
+        $("#titulo").html("");
+        return jsondata;
+    }
+    var carreras = seleccionarCarreras(sigla);
+    modificarTitulo(carreras, sigla);
+    var resultado = [];
+
+    for (proyecto of jsondata) {
+        for (carrera of carreras) {
+            if (limpiar(proyecto.carrera) == carrera)
+                resultado.push(proyecto);
+        }
+    }
+    return resultado;
+}
 $(function () {
     crearMenu();
     var proyectos = fetch('./json/base.json')
@@ -105,7 +140,7 @@ $(function () {
             return response.json();
         })
         .then(jsondata => {
-            proyectos = jsondata;
+            proyectos = seleccionarProyectos(jsondata);
             crearProyectos(proyectos);
         });
 });
