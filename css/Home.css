@@ -1,6 +1,49 @@
+.emd {
+  background-image: linear-gradient(60deg, rgb(183, 0, 255), rgb(0, 255, 242));
+}
+
+.emc {
+  background-image: linear-gradient(80deg, rgb(0, 26, 255), rgb(0, 247, 255));
+}
+
+.ccc {
+  background-image: linear-gradient(100deg, rgb(255, 94, 0), yellow);
+}
+
+.msf {
+  background-image: linear-gradient(120deg, rgb(143, 86, 33), rgb(239, 243, 30), red);
+}
+
+.iin {
+  background-image: linear-gradient(70deg, rgb(243, 35, 35), rgb(228, 174, 205));
+}
+
+.itc {
+  background-image: linear-gradient(40deg, rgb(255, 0, 128), rgb(236, 137, 56));
+}
+
+.gpp {
+  background-image: linear-gradient(250deg, rgb(207, 224, 211), rgb(5, 248, 57));
+}
+
+.subtitulo {
+  font-weight: bold;
+}
+
+.celda p {
+  font-size: 12px;
+  color: black;
+  margin: 10px;
+  line-height: 1.5;
+}
+
+.celda div {
+  width: 60%;
+}
+
 #padre h3 {
   font-size: 14px;
-  color: rgba(35, 44, 97, 0.85);
+  color: rgb(0, 0, 0);
   margin: 10px;
   font-weight: bold;
   display: -webkit-box;
@@ -11,20 +54,25 @@
 }
 
 #padre img {
-  width: 100%;
+  width: 40%;
   border-radius: 10px;
+  margin-top: 5px;
+  margin-left: 10px;
 }
 
 #padre {
   margin-bottom: 30px;
 }
 
-#padre div {
-  background-color: rgba(235, 232, 232, 0.699);
+.celda {
   height: 100%;
   width: 100%;
   border-radius: 10px;
   line-height: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
 }
 
 .u-padding-left li {
@@ -1939,9 +1987,9 @@
 }
 
 .u-section-8 .u-repeater-1 {
-  grid-template-columns: repeat(3, calc(33.3333% - 20px));
+  grid-template-columns: repeat(2, calc(50% - 10px));
   min-height: 976px;
-  grid-gap: 30px;
+  grid-gap: 20px;
 }
 
 .u-section-8 .u-image-1 {

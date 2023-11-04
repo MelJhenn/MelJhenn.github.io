@@ -1,15 +1,58 @@
 var proyectos = [];
-function crearCelda(proyecto) {
-    var padre = $("#padre");
-    var celda = $("<div>");
-    var image = $("<img>", {
-        "src": "./img/fichas/" + proyecto.codigo + ".png",
-        "data-action": "zoom"
-    });
+function crearCampo(subtitulo, valor) {
+    var campo = $("<p>");
+    campo.append([
+        $("<span>", {
+            "class": "subtitulo"
+        }).text(subtitulo),
+        $("<span>").text(valor),
+    ]);
+    return campo;
+}
+function crearDatos(proyecto) {
+    var datos = $("<div>");
     var title = $("<h3>");
     title.text(proyecto.titulo_proyecto);
+    var autor = crearCampo("Postulante(s): ", proyecto.autor);
+    var tutor = crearCampo("Tutor: ", proyecto.tutor);
+    var carrera = crearCampo("Carrera: ", proyecto.carrera);
+    var modalidad = crearCampo("Modalidad: ", proyecto.tipo_proyecto);
+    var gestion = crearCampo("Periodo: ", proyecto.gestion);
+    var codigo = crearCampo("Código: ", proyecto.codigo);
+    var resumen = crearCampo("Resumen: ", "Tras el análisis de las instalaciones de la institución y vistas las necesidades de la carrera de Construcción Civil, se plantea la elaboración de un mesón de concreto para el uso en laboratorio. con objetivo de duración, higiene, inversión y adaptación.");
+
+
+    datos.append([title, autor, tutor, carrera, modalidad, gestion, gestion, codigo, resumen]);
+    return datos;
+}
+function obtenerSigla(proyecto) {
+    var siglas = {
+        "ELECTROMEDICINA": "emd",
+        "CONSTRUCCION CIVIL": "ccc",
+        "GAS, PETROLEO Y PROCESOS": "gpp",
+        "GAS, PETROLEO": "gpp",
+        "INDUSTRIA TEXTIL Y CONFECCION": "itc",
+        "INFORMATICA INDUSTRIAL": "iin",
+        "METALURGIA, SIDERURGIA Y FUNDICION": "msf",
+        "ELECTROMECANICA": "emc",
+    };
+    return siglas[proyecto.carrera.normalize('NFD').replace(/[\u0300-\u036f]/g, "").trim()];
+}
+function crearCelda(proyecto) {
+    var sigla = obtenerSigla(proyecto);
+    var padre = $("#padre");
+    var celda = $("<div>", {
+        "class": "celda " + sigla
+    });
+
+    var image = $("<img>", {
+        "src": "./img/fichas/" + proyecto.codigo + ".jpg",
+        "data-action": "zoom"
+    });
+    var datos = crearDatos(proyecto);
+
     celda.append(image);
-    //celda.append(title);
+    celda.append(datos);
     padre.append(celda);
 }
 function crearProyectos(lista) {
