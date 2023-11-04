@@ -1,3 +1,32 @@
+#padre h3 {
+  font-size: 14px;
+  color: rgba(35, 44, 97, 0.85);
+  margin: 10px;
+  font-weight: bold;
+  display: -webkit-box;
+  max-width: 100%;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+#padre img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+#padre {
+  margin-bottom: 30px;
+}
+
+#padre div {
+  background-color: rgba(235, 232, 232, 0.699);
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  line-height: 0;
+}
+
 .u-padding-left li {
   padding-left: 10px;
 }
