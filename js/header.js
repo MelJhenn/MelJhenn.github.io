@@ -56,9 +56,12 @@ function crearCelda(proyecto) {
     padre.append(celda);
 }
 function crearProyectos(lista) {
-
+    if (lista.length == 0) {
+        $("#padre").html("No se encontraron resultados.");
+    }
     for (proyecto of lista) {
         crearCelda(proyecto);
+
     }
 }
 function crearMenu() {
@@ -113,10 +116,34 @@ function modificarTitulo(carreras, sigla) {
     }
     $("#titulo").html('<img src="./img/' + sigla + 'logo.png" width="100px">' + nombre);
 }
+function contiene(proyecto, string) {
+    for (const [key, value] of Object.entries(proyecto)) {
+        var valor = limpiar(value);
+        if (valor.toLowerCase().includes(string)) {
+            return true;
+        }
+    }
+    return false;
+}
+function buscar(lista, string) {
+    $("#search").val(string);
+    var resultado = [];
+    string = limpiar(string).toLowerCase();
+    for (proyecto of lista)
+        if (contiene(proyecto, string))
+            resultado.push(proyecto);
+    return resultado;
+
+}
 function seleccionarProyectos(jsondata) {
     const querystring = window.location.search;
     const params = new URLSearchParams(querystring);
     var sigla = params.get("sigla");
+    var busca = params.get("busca");
+    if (busca != null) {
+        $("#titulo").html("");
+        return buscar(jsondata, busca);
+    }
     if (sigla == null) {
         $("#titulo").html("");
         return jsondata;
@@ -133,8 +160,21 @@ function seleccionarProyectos(jsondata) {
     }
     return resultado;
 }
+function agregarEventosBuscador() {
+    $("#search").keypress(function (e) {
+        var key = e.which;
+        if (key == 13)  // the enter key code
+        {
+            var url = new URL(window.location);
+            url.searchParams.set('busca', $("#search").val());
+            window.location = url.href;
+            return false;
+        }
+    });
+}
 $(function () {
     crearMenu();
+    agregarEventosBuscador();
     var proyectos = fetch('./json/base.json')
         .then(response => {
             return response.json();
