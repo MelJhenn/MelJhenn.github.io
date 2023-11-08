@@ -29,7 +29,7 @@ function crearDatos(proyecto) {
     var modalidad = crearCampo("Modalidad: ", proyecto.tipo_proyecto);
     var gestion = crearCampo("Periodo: ", proyecto.gestion);
     var codigo = crearCampo("Código: ", proyecto.codigo);
-    var resumen = crearCampo("Resumen: ", "Tras el análisis de las instalaciones de la institución y vistas las necesidades de la carrera de Construcción Civil, se plantea la elaboración de un mesón de concreto para el uso en laboratorio. con objetivo de duración, higiene, inversión y adaptación.");
+    var resumen = crearCampo("Resumen: ", proyecto.descripcion);
 
 
     datos.append([title, autor, tutor, carrera, modalidad, gestion, gestion, codigo, resumen]);
