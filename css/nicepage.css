@@ -18562,7 +18562,7 @@ div.u-video,
 }
 
 .u-popupmenu-items {
-  min-width: 120px;
+  min-width: 250px;
 }
 
 .u-popupmenu-items .u-nav {
@@ -18583,7 +18583,7 @@ div.u-video,
   display: inline-block;
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 0 0 0 20px;
 }
 
 .u-nav-item {
@@ -18593,6 +18593,7 @@ div.u-video,
   padding: 0;
   margin: 0;
   height: 100%;
+  text-align: left;
 }
 
 .u-nav-popup .u-nav-item {
