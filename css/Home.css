@@ -2340,7 +2340,11 @@
   }
 
   .u-section-8 .u-text-1 {
-    margin-top: -244px;
+    margin-top: 0px;
+  }
+
+  .buscador {
+    width: 50%;
   }
 
   .u-section-8 .u-list-1 {
