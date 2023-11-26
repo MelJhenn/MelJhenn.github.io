@@ -1,13 +1,13 @@
 var proyectos = [];
 var siglas = {
     "ELECTROMEDICINA": "emd",
-    "CONSTRUCCION CIVIL": "ccc",
-    "GAS, PETROLEO Y PROCESOS": "gpp",
-    "GAS, PETROLEO": "gpp",
-    "INDUSTRIA TEXTIL Y CONFECCION": "itc",
-    "INFORMATICA INDUSTRIAL": "iin",
-    "METALURGIA, SIDERURGIA Y FUNDICION": "msf",
-    "ELECTROMECANICA": "emc",
+    "CONSTRUCCIÓN CIVIL": "ccc",
+    "GAS, PETRÓLEO Y PROCESOS": "gpp",
+    "GAS, PETRÓLEO": "gpp",
+    "INDUSTRIA TEXTIL Y CONFECCIÓN": "itc",
+    "INFORMÁTICA INDUSTRIAL": "iin",
+    "METALURGIA, SIDERURGIA Y FUNDICIÓN": "msf",
+    "ELECTROMECÁNICA": "emc",
 };
 function crearCampo(subtitulo, valor) {
     var campo = $("<p>");
@@ -38,8 +38,16 @@ function crearDatos(proyecto) {
 function limpiar(cadena) {
     return cadena.normalize('NFD').replace(/[\u0300-\u036f]/g, "").trim();
 }
+function buscarSigla(carrera) {
+    carrera = limpiar(carrera);
+    for (const [key, value] of Object.entries(siglas)) {
+        if (limpiar(key) == carrera)
+            return value;
+    }
+    return null;
+}
 function crearCelda(proyecto) {
-    var sigla = siglas[limpiar(proyecto.carrera)];
+    var sigla = buscarSigla(proyecto.carrera);
     var padre = $("#padre");
     var celda = $("<div>", {
         "class": "celda " + sigla
@@ -154,6 +162,7 @@ function seleccionarProyectos(jsondata) {
 
     for (proyecto of jsondata) {
         for (carrera of carreras) {
+            carrera = limpiar(carrera);
             if (limpiar(proyecto.carrera) == carrera)
                 resultado.push(proyecto);
         }
